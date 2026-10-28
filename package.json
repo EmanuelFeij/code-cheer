@@ -1,0 +1,78 @@
+{
+    "name": "code-cheer",
+    "displayName": "Code Cheer",
+    "version": "0.0.1",
+    "description": "Friendly popups and a save-time cheer to keep your mood up while you code.",
+    "license": "MIT",
+    "author": "Emanuel Feijo",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/EmanuelFeij/code-cheer.git"
+    },
+    "bugs": {
+        "url": "https://github.com/EmanuelFeij/code-cheer/issues"
+    },
+    "homepage": "https://github.com/EmanuelFeij/code-cheer#readme",
+    "publisher": "local",
+    "engines": {
+        "vscode": "^1.80.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "main": "./out/extension.js",
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "scripts": {
+        "build": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "package": "npm run build && npx @vscode/vsce package -o code-cheer.vsix",
+        "install-ext": "npm run package && code --install-extension code-cheer.vsix --force"
+    },
+    "devDependencies": {
+        "@types/node": "^18.19.130",
+        "@types/vscode": "^1.80.0",
+        "typescript": "^5.0.0"
+    },
+    "contributes": {
+        "commands": [
+            {
+                "command": "codeCheer.toggleQuiet",
+                "title": "Code Cheer: Toggle quiet mode"
+            }
+        ],
+        "configuration": {
+            "title": "Code Cheer",
+            "properties": {
+                "codeCheer.intervalMinutes": {
+                    "type": "number",
+                    "default": 5,
+                    "minimum": 1,
+                    "description": "Minutes between cheer messages."
+                },
+                "codeCheer.showOnSave": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show a message when saving a file."
+                },
+                "codeCheer.messages": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [],
+                    "description": "Your own messages, added to the periodic cheer popups."
+                },
+                "codeCheer.saveMessages": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [],
+                    "description": "Your own messages, added to the popups shown when saving a file."
+                }
+            }
+        }
+    }
+}
